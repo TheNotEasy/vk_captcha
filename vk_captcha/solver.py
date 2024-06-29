@@ -8,7 +8,6 @@ import onnxruntime as onr
 import numpy as np
 import requests
 import cv2
-import vk_api
 import threading
 from requests.exceptions import ProxyError
 from typing import TYPE_CHECKING
@@ -31,19 +30,14 @@ class VkCaptchaSolver:
     """
     Vk captcha handling
     Fast examples:
-1) vk_api.VkApi
->>> from vk_captcha import vk_api_handler
->>> vk = vk_api_handler.VkApiCaptcha("88005553535", "efwoewkofokw")  # this login will create captcha
->>> vk_api_handler.Solver.logging = True  # enable logging
->>> vk.auth() # getting Password Api error
-2) solving captcha from url
+1) solving captcha from url
 >>> from vk_captcha import VkCaptchaSolver
 >>> import random
 >>> solver = VkCaptchaSolver(logging=True)
 >>> captcha_response, accuracy = solver.solve(url=f"https://api.vk.com/captcha.php?sid={random.randint(0,10000000)}", minimum_accuracy=0.15)
 >>> async def async_way():
 ... await solver.solve_async(url=f"https://api.vk.com/captcha.php?sid={random.randint(0,10000000)}")
-3) if you have image in bytes:
+2) if you have image in bytes:
 >>> solver.solve(bytes_data=requests.get(f"https://api.vk.com/captcha.php?sid={random.randint(0,10000000)}").content)
     """
     TOTAL_COUNT = 0
@@ -207,24 +201,6 @@ class VkCaptchaSolver:
 
         return answer, accuracy
 
-    async def vk_wave_captcha_handler(self, error: dict, api_ctx: 'APIOptionsRequestContext'):
-        method = error["error"]["request_params"][0]["value"]
-        request_params = {}
-        for param in error["error"]["request_params"]:
-            if param["key"] in ("oauth", "v", "method"):
-                continue
-            request_params[param["key"]] = param["value"]
-
-        key = await self.solve_async(error["error"]["captcha_img"], minimum_accuracy=0.33)
-
-        request_params.update(
-            {"captcha_sid": error["error"]["captcha_sid"], "captcha_key": key})
-        return await api_ctx.api_request(method, params=request_params)
-
-    def vk_wave_attach_to_api_session(self, api_session):
-        d = api_session.default_api_options.error_dispatcher
-        d.add_handler(14, self.vk_wave_captcha_handler)
-
     @staticmethod
     def get_result(pred):
         """CTC decoder of the output tensor
@@ -250,25 +226,3 @@ class VkCaptchaSolver:
 
         answ = "".join(ans)[:max_length]
         return answ, accuracy
-
-    def vk_api_captcha_handler(self, captcha, minimum_accuracy=0.3, repeat_count=10):
-        """vk_api.VkApi captcha handler function"""
-        key, _ = self.solve(
-            captcha.get_url(), minimum_accuracy=minimum_accuracy, repeat_count=repeat_count)
-        try:
-            ans = captcha.try_again(key)
-            return ans
-        except vk_api.ApiError as e:
-            if e.code == vk_api.vk_api.CAPTCHA_ERROR_CODE:
-                with lock:
-                    VkCaptchaSolver.FAIL_COUNT += 1
-            raise
-
-    async def vkbottle_captcha_handler(self, error: "CaptchaError", **kwargs) -> str:
-        if isinstance(error, Exception) and hasattr(error, 'code'):
-            if error.code == 14:
-                if hasattr(error, 'captcha_img'):
-                    url = error.captcha_img
-                if hasattr(error, 'img'):
-                    url = error.img
-                return (await self.solve_async(url=url, **kwargs))[0]
