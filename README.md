@@ -35,37 +35,6 @@ pip install git+https://github.com/imartemy1524/vk_captcha
 ### Fast examples:
 Look into [VkHacker](VkHacker) for examples of accounts bruteforce
 
-#### using [vk_api](https://github.com/python273/vk_api) library:
-
-```python
-from vk_captcha import vk_api_handler
-vk = vk_api_handler.VkApiCaptcha("88005553535", "efwoewkofokw")  # this login will create captcha
-vk_api_handler.Solver.logging = True  # enable logging
-vk.auth() # get captcha error and automatically solve it
-```
-
-#### another way with [vk_api](https://github.com/python273/vk_api):
-
-```python
-from vk_captcha import VkCaptchaSolver
-from vk_api import VkApi
-solver = VkCaptchaSolver(logging=True)  # use logging=False on deploy
-vk = VkApi(login='', password='', captcha_handler=solver.vk_api_captcha_handler)
-vk.method("any.method.with.captcha.will.be.handled")
-```
-
-#### using [vkbottle](https://github.com/vkbottle/vkbottle):
-
-```python
-from vkbottle.bot import Bot # Or "from vkbottle.user import User"
-from vk_captcha import VkCaptchaSolver
-
-bot = Bot(token=...) # Or "bot = User(token=...)"
-solver = VkCaptchaSolver()
-
-bot.api.add_captcha_handler(solver.vkbottle_captcha_handler)
-```
-
 #### just solve captcha from *url* / *bytes*
 
 
