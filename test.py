@@ -1,19 +1,18 @@
-"""
-Test model in RL
+from vk_captcha import VkCaptchaSolver
+import random, requests
 
-"""
-import traceback
+session = requests.Session()  
+session.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0'
 
-import vk_api.exceptions
+solver = VkCaptchaSolver(logging=True)  # use logging=False on deploy
+sid = random.randint(122112, 10102012012012)
+easy_captcha = False
+url = f"https://api.vk.com/captcha.php?sid={sid}&s={int(easy_captcha)}"
 
-import vk_captcha.vk_api_handler
-
-print("!!Crack started!!")
-vk = vk_captcha.vk_api_handler.VkApiCaptcha(login='88005553535', password='abccba')
-try:
-    vk.auth()
-except vk_api.exceptions.BadPassword as e:
-    print("Successfully cracked the captcha!!!")
-except Exception as e:
-    print("Oops... Captcha didn't passed :(")
-    traceback.print_exc()
+answer, accuracy = solver.solve(
+    url=url,
+    minimum_accuracy=0.33,  # keep solving captcha while accuracy < 0.33
+    repeat_count=14,  # if we solved captcha with less than minimum_accuracy, then retry repeat_count times
+    session=session  # optional parameter. Useful if we want to use proxy or specific headers
+)
+print(f"I solved captcha = {answer} with accuracy {accuracy:.4}")
