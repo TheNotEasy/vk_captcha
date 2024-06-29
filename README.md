@@ -8,6 +8,9 @@
     <img alt="PyPI - Downloads" src="https://img.shields.io/github/downloads/imartemy1524/vk_captcha/total">
 </p>
 
+## Fork
+This is fork of [vk_captcha](https://github.com/imartemy1524/vk_captcha) without vk api modules references.
+
 ## Requirements
 > Python3.3 - python3.10
 
