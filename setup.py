@@ -17,10 +17,9 @@ setup(
   long_description_content_type='text/markdown',
   long_description=long_description,
   package_data={'vk_captcha': ['*.onnx']},
-  author_email='imartemy1@gmail.com',
-  url='https://github.com/imartemy1524/vk_captcha',   # Provide either the link to your github or to your website
+  url='https://github.com/WireguardVpnRender/vk_captcha',   # Provide either the link to your github or to your website
   # download_url='https://github.com/imartemy1524/vk_captcha/archive/v_01.tar.gz',    # I explain this later on
-  keywords=['vk', 'vk_api', 'captcha', 'vk_captcha', 'solver'],
+  keywords=['vk', 'captcha', 'vk_captcha', 'solver'],
   install_requires=requirements,
   classifiers=[
     'Development Status :: 3 - Alpha',
