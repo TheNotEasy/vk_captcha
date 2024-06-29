@@ -22,11 +22,6 @@ is not supporting **python3.10**~~
 
 ## Installation
 
-
-```
-pip install https://github.com/WireguardVpnRender/vk_captcha/raw/main/dist/vk_captcha-2.0.tar.gz
-```
-or
 ```
 pip install git+https://github.com/WireguardVpnRender/vk_captcha
 ```
