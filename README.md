@@ -33,7 +33,6 @@ pip install git+https://github.com/WireguardVpnRender/vk_captcha
 
 
 ### Fast examples:
-Look into [VkHacker](VkHacker) for examples of accounts bruteforce
 
 #### just solve captcha from *url* / *bytes*
 
