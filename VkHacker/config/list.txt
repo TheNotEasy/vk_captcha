@@ -1,2 +1,0 @@
-testlog:testpassword
-testlog2:testpassword
