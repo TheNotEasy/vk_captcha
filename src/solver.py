@@ -7,7 +7,7 @@ import onnxruntime as onr
 import numpy as np
 import requests
 import cv2
-import vk_api, threading
+import threading
 from requests.exceptions import ProxyError
 
 characters = ['j', '2', 'd', ' ', 'e', 'b', '4', 'v', 'k', '5', 'n', 'i', 'm', 'y', 'c', 'l', 's', 'a', '0', '1', '9',
@@ -20,19 +20,14 @@ class VkCaptchaSolver:
     """
     Vk captcha handling
     Fast examples:
-1) vk_api.VkApi
->>> from vk_captcha import vk_api_handler
->>> vk = vk_api_handler.VkApiCaptcha("88005553535", "efwoewkofokw")  # this login will create captcha
->>> vk_api_handler.Solver.logging = True  # enable logging
->>> vk.auth() # getting Password Api error
-2) solving captcha from url
+1) solving captcha from url
 >>> from vk_captcha import VkCaptchaSolver
 >>> import random
 >>> solver = VkCaptchaSolver(logging=True)
 >>> captcha_response, accuracy = solver.solve(url=f"https://api.vk.com/captcha.php?sid={random.randint(0,10000000)}", minimum_accuracy=0.15)
 >>> async def async_way():
 ... await solver.solve_async(url=f"https://api.vk.com/captcha.php?sid={random.randint(0,10000000)}")
-3) if you have image in bytes:
+2) if you have image in bytes:
 >>> solver.solve(bytes_data=requests.get(f"https://api.vk.com/captcha.php?sid={random.randint(0,10000000)}").content)
     """
     TOTAL_COUNT = 0
@@ -200,13 +195,4 @@ class VkCaptchaSolver:
                     ans.append(i)
                     accuracy *= pred[0][index][i]
         return "".join((characters[i - 1] for i in ans if i < len(characters)))[:8].replace(' ',''), accuracy
-
-    def vk_api_captcha_handler(self, captcha, minimum_accuracy=0.33, repeat_count=10):
-        """vk_api.VkApi captcha handler function"""
-        key, _ = self.solve(captcha.get_url(), minimum_accuracy=minimum_accuracy, repeat_count=repeat_count)
-        try:
-            return captcha.try_again(key)
-        except vk_api.ApiError as e:
-            if e.code == vk_api.vk_api.CAPTCHA_ERROR_CODE:
-                with lock: VkCaptchaSolver.FAIL_COUNT += 1
-            raise
+      
