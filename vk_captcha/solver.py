@@ -12,10 +12,6 @@ import threading
 from requests.exceptions import ProxyError
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from vkbottle import CaptchaError
-    from vk_wave import APIOptionsRequestContext
-
 characters = ['z', 's', 'h', 'q', 'd', 'v', '2', '7', '8',
               'x', 'y', '5', 'e', 'a', 'u', '4', 'k', 'n', 'm', 'c', 'p']
 img_width = 130
