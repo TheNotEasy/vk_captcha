@@ -161,21 +161,6 @@ class VkCaptchaSolver:
 
         return answer, accuracy
 
-    async def vk_wave_captcha_handler(self, error: dict, api_ctx: 'APIOptionsRequestContext'):
-        method = error["error"]["request_params"][0]["value"]
-        request_params = {}
-        for param in error["error"]["request_params"]:
-            if param["key"] in ("oauth", "v", "method"):
-                continue
-            request_params[param["key"]] = param["value"]
-
-        key = await self.solve_async(error["error"]["captcha_img"], minimum_accuracy=0.33)
-
-        request_params.update({"captcha_sid": error["error"]["captcha_sid"], "captcha_key": key})
-        return await api_ctx.api_request(method, params=request_params)
-    def vk_wave_attach_to_api_session(self, api_session):
-        d = api_session.default_api_options.error_dispatcher
-        d.add_handler(14, self.vk_wave_captcha_handler)
     @staticmethod
     def get_result(pred):
         """CTC decoder of the output tensor
