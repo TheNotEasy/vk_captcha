@@ -11,8 +11,8 @@ import cv2
 import threading
 from requests.exceptions import ProxyError
 
-characters = ['z', 's', 'h', 'q', 'd', 'v', '2', '7', '8',
-              'x', 'y', '5', 'e', 'a', 'u', '4', 'k', 'n', 'm', 'c', 'p']
+characters = ['ж', 'д', 'ф', 'ш', 'х', 'т', 'у', 'к', 'с', 'е',
+              'р', 'а', '2', '7', '5', 'м']
 img_width = 130
 img_height = 50
 lock = threading.Lock()
