@@ -10,7 +10,6 @@ import requests
 import cv2
 import threading
 from requests.exceptions import ProxyError
-from typing import TYPE_CHECKING
 
 characters = ['z', 's', 'h', 'q', 'd', 'v', '2', '7', '8',
               'x', 'y', '5', 'e', 'a', 'u', '4', 'k', 'n', 'm', 'c', 'p']
