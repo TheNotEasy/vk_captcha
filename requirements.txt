@@ -1,5 +1,5 @@
 onnxruntime
 numpy
-opencv-python
+opencv-python-headless
 requests
 aiohttp
