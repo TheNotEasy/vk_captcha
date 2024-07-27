@@ -12,14 +12,8 @@
 This is fork of [vk_captcha](https://github.com/imartemy1524/vk_captcha) without vk api modules references
 and with [cyrillic model](https://cloud.mail.ru/public/Rks4/nVXkMG2Mz). Thanks [T3h-Verm](https://github.com/imartemy1524/vk_captcha/issues/9#issuecomment-1915583529)!
 
-## Requirements
-> Python3.3 - python3.10
-
-~~Python 3.10 is not supported yet because 
-[onnxruntime](https://pypi.org/project/onnxruntime/) 
-is not supporting **python3.10**~~
-
-#### UPDATE: Python3.10 is supported
+## Support
+python3.3 - python3.12
 
 ## Installation
 
