@@ -8,7 +8,7 @@ with open("./requirements.txt") as req_file:
 
 
 setup(
-  name='vk_captcha',
+  name='vk_captcha_cyrillic',
   packages=['vk_captcha'],
   version='2.0.3',
   license='MIT',
@@ -17,7 +17,7 @@ setup(
   long_description_content_type='text/markdown',
   long_description=long_description,
   package_data={'vk_captcha': ['*.onnx']},
-  url='https://github.com/WireguardVpnRender/vk_captcha',   # Provide either the link to your github or to your website
+  url='https://github.com/TheNotEasy/vk_captcha',   # Provide either the link to your github or to your website
   keywords=['vk', 'captcha', 'vk_captcha', 'solver'],
   install_requires=requirements,
   classifiers=[
