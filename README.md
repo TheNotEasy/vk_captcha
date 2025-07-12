@@ -18,7 +18,7 @@ python3.3 - python3.12
 ## Installation
 
 ```
-pip install git+https://github.com/TheNotEasy/vk_captcha
+pip install vk_captcha_cyrillic
 ```
 
 
